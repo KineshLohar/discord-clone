@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import {Open_Sans} from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { cn } from "@/lib/utils";
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "./api/uploadthing/core";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
-const font = Open_Sans({ subsets : ['latin']})
+const font = Open_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,12 +22,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${font.className} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={cn(`
+            ${font.className} antialiased`,
+            'bg-white dark:bg-[#313338]'
+          )
+          }
+        >
+          <NextSSRPlugin
+            routerConfig={extractRouterConfig(ourFileRouter)}
+          />
+          <ThemeProvider attribute='class'
+            defaultTheme="dark"
+            enableSystem={true}
+            storageKey="='discord-theme"
+          >
+            <ModalProvider />
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
