@@ -31,6 +31,6 @@ export async function PATCH(req: Request, { params }: { params: { serverId: stri
 
     } catch (error) {
         console.log("Invite Code Error ", error);
-        return new NextResponse("Internal server error")
+        return new NextResponse("Internal server error", { status: 500 })
     }
 }
