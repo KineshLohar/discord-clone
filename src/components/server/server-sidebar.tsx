@@ -3,12 +3,13 @@ import { db } from "@/lib/db"
 import { ChannelType, MemberRole } from "@prisma/client"
 import { redirect } from "next/navigation"
 import { ServerHeader } from "./server-header"
-import { Button } from "../ui/button"
 import { HashIcon, Mic, Search, ShieldAlert, ShieldCheck, Video } from "lucide-react"
 import { ScrollArea } from "../ui/scroll-area"
 import { ServerSearch } from "./server-search"
 import { ServerSection } from "./server-section"
 import { Separator } from "../ui/separator"
+import { ServerChannel } from "./server-channel"
+import { ServerMember } from "./server-member"
 
 const iconMap = {
     [ChannelType.TEXT]: <HashIcon className=" mr-2 h-4 w-4" />,
@@ -122,6 +123,16 @@ export const ServerSidebar = async ({ serverId }: { serverId: string }) => {
                                 sectionType="channels"
                                 channelType={ChannelType.TEXT}
                             />
+                            {
+                                textChannels?.map((channel) => (
+                                    <ServerChannel
+                                        key={channel.id}
+                                        channel={channel}
+                                        role={role}
+                                        server={server}
+                                    />
+                                ))
+                            }
                         </div>
                     )
                 }
@@ -134,6 +145,16 @@ export const ServerSidebar = async ({ serverId }: { serverId: string }) => {
                                 sectionType="channels"
                                 channelType={ChannelType.AUDIO}
                             />
+                            {
+                                audioChannels?.map((channel) => (
+                                    <ServerChannel
+                                        key={channel.id}
+                                        channel={channel}
+                                        role={role}
+                                        server={server}
+                                    />
+                                ))
+                            }
                         </div>
                     )
                 }
@@ -146,6 +167,16 @@ export const ServerSidebar = async ({ serverId }: { serverId: string }) => {
                                 sectionType="channels"
                                 channelType={ChannelType.VIDEO}
                             />
+                            {
+                                videoChannels?.map((channel) => (
+                                    <ServerChannel
+                                        key={channel.id}
+                                        channel={channel}
+                                        role={role}
+                                        server={server}
+                                    />
+                                ))
+                            }
                         </div>
                     )
                 }
@@ -158,6 +189,16 @@ export const ServerSidebar = async ({ serverId }: { serverId: string }) => {
                                 sectionType="members"
                                 server={server}
                             />
+                            {
+                                members?.map((member) => (
+                                    <ServerMember
+                                        key={member.id}
+                                        member={member}
+                                        server={server}
+                                    />
+                                )
+                                )
+                            }
                         </div>
                     )
                 }

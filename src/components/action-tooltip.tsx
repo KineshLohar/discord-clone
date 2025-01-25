@@ -3,8 +3,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/t
 
 interface ActionTooltipProps {
     label: string;
-    side: 'top' | 'left' | 'right' | 'bottom';
-    align: 'start' | 'center' | 'end';
+    side?: 'top' | 'left' | 'right' | 'bottom';
+    align?: 'start' | 'center' | 'end';
     children: React.ReactNode
 
 }
