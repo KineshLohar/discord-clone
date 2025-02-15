@@ -10,7 +10,7 @@ interface ModalData {
     channelType?: ChannelType;
 }
 
-export type ModalType = "createServer" | "invite" | 'editServer' | 'members' | 'createChannel' | 'leaveServer' | 'deleteServer' | 'deleteChannel';
+export type ModalType = "createServer" | "invite" | 'editServer' | 'members' | 'createChannel' | 'leaveServer' | 'deleteServer' | 'deleteChannel' | 'editChannel';
 
 interface ModalStore {
     type : ModalType | null;
