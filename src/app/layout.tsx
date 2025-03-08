@@ -8,6 +8,8 @@ import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "./api/uploadthing/core";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import { SocketProvider } from "@/components/providers/socket-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 const font = Open_Sans({ subsets: ['latin'] })
 
@@ -27,7 +29,7 @@ export default function RootLayout({
         <body
           className={cn(`
             ${font.className} antialiased`,
-            'bg-white dark:bg-[#313338]'
+            'bg-white dark:bg-[#313338] h-full'
           )
           }
         >
@@ -39,8 +41,12 @@ export default function RootLayout({
             enableSystem={true}
             storageKey="='discord-theme"
           >
-            <ModalProvider />
-            {children}
+            <SocketProvider>
+              <ModalProvider />
+              <QueryProvider>
+                {children}
+              </QueryProvider>
+            </SocketProvider>
           </ThemeProvider>
         </body>
       </html>
