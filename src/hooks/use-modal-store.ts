@@ -12,7 +12,7 @@ interface ModalData {
     query?: Record<string, any >
 }
 
-export type ModalType = "createServer" | "invite" | 'editServer' | 'members' | 'createChannel' | 'leaveServer' | 'deleteServer' | 'deleteChannel' | 'editChannel' | 'messageFile';
+export type ModalType = "createServer" | "invite" | 'editServer' | 'members' | 'createChannel' | 'leaveServer' | 'deleteServer' | 'deleteChannel' | 'editChannel' | 'messageFile' | 'deleteMessage';
 
 interface ModalStore {
     type : ModalType | null;
